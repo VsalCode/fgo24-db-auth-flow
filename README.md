@@ -1,57 +1,24 @@
 ## ERD Authflow
 
 ```mermaid
-  erDiagram
+erDiagram
   direction LR
-  user ||--o{ login: "melakukan"
-  user ||--o{ register: "melakukan"
-  user {
-    string id_user PK
-    string fullname_user
-    string email_user
-    string password_user
-    string confirm_password_user
-  }
-  login {
-    string id_login PK
-    string token_login
-    boolean status_login
-    string id_user FK
-    string id_register FK
-  }
-  register ||--|| login : "diarahkan"
-  register {
-    string id_register PK
-    boolean status_register
-    string id_user FK
-  }
-  login ||--|| account : menampilkan
-  account {
-    string id_account PK
-    string id_register FK
-    string id_login FK
-  }
-
-```
-
-<!-- ```mermaid
-  erDiagram
-  direction LR
-  account {
-    string id_account PK
-    string id_login FK
-    string id_register FK
-  }
-  login {
-    string id_login PK
-    string username
+  User ||--o{ Session : "has"
+  User {
+    string id PK
+    string fullname
     string email
-    string password
-    string id_register FK
+    string password_hash
+    boolean is_verified
+    timestamp created_at
+    timestamp updated_at
   }
-  register {
-    string id_register PK
-    string name
-    int age
+  Session {
+    string id PK
+    string token
+    boolean is_active
+    timestamp created_at
+    timestamp expiry_time
+    string user_id FK
   }
-``` -->
+```
